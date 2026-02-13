@@ -31,6 +31,12 @@ namespace Cadastro
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
+            if (!Validacao())
+            {
+                MessageBox.Show("Todos os campos devem ser preenchidos!","Erro",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
             Jogador jogador = new Jogador();
             jogador.Nome = txtNome.Text;
             jogador.Idade = Convert.ToInt32(txtIdade.Text);
@@ -53,6 +59,27 @@ namespace Cadastro
         {
             dgvJogador.DataSource = BancoDeDados.BuscaJogador();
             dgvJogador.Update();
+        }
+
+        private bool Validacao()
+        {
+            if(string.IsNullOrEmpty(txtNome.Text)) 
+                return false;
+            if(string.IsNullOrEmpty(txtIdade.Text))
+                return false;
+            if (cbxGenero.SelectedIndex == -1)
+                return false;
+            if(string.IsNullOrEmpty(txtNacionalidade.Text))
+                return false;
+            if(string.IsNullOrEmpty(txtJogo.Text))
+                return false;
+            if (cbxPlataforma.SelectedIndex == -1)
+                return false;
+            if (string.IsNullOrEmpty(txtTempo.Text))
+                return false;
+            if (cbxNota.SelectedIndex == -1)
+                return false;
+            return true;
         }
     }
 }
